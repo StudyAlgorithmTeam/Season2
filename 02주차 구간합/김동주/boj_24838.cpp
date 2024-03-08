@@ -19,8 +19,8 @@ long long mmul(long long a, long long b, long long mod) {
 }
 
 struct edge {
-    int index;
-    int diff;
+    long long index;
+    long long diff;
 };
 
 
@@ -31,9 +31,9 @@ bool cmp_edges(const struct edge &p1, const struct edge &p2) {
 
 long long FACTORIAL[MAX_M+1];
 
-int n;
-int m;
-int A[MAX_N+1];
+long long n;
+long long m;
+long long A[MAX_N+1];
 struct edge edges[2*(MAX_M+1)];
 long long frequency[MAX_M+1];
 
@@ -42,14 +42,14 @@ void testcase() {
     cin >> n >> m;
 
     // O(n)
-    for (int i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         cin >> A[i];
     }
 
     // O(m)
-    int n_edges = 0;
-    for (int j = 0; j < m; j++) {
-        int x, y;
+    long long n_edges = 0;
+    for (long long j = 0; j < m; j++) {
+        long long x, y;
 
         cin >> x;
         edges[n_edges].index = x;
@@ -71,9 +71,9 @@ void testcase() {
     memset(frequency, 0, sizeof(frequency));
 
     // O(m)
-    int last_index = 1;
-    int last_n_ranges = 0;
-    for (int i = 0; i < n_edges; i++) {
+    long long last_index = 1;
+    long long last_n_ranges = 0;
+    for (long long i = 0; i < n_edges; i++) {
         frequency[last_n_ranges] += (edges[i].index - last_index);
         last_n_ranges += edges[i].diff;
         last_index = edges[i].index;
@@ -83,11 +83,11 @@ void testcase() {
     // O(n+m)
     long long max_s = 0;
     long long n_cases = 1;
-    int index = n-1;
-    for (int n_ranges = m; n_ranges >= 0; n_ranges--) {
+    long long index = n-1;
+    for (long long n_ranges = m; n_ranges >= 0; n_ranges--) {
         // n_ranges개의 구간에 포함된 원소가 n_elements개.
-        int n_elements = frequency[n_ranges];
-        for (int i = 0; i < n_elements; i++) {
+        long long n_elements = frequency[n_ranges];
+        for (long long i = 0; i < n_elements; i++) {
             max_s += n_ranges * A[index--];
         }
         n_cases = mmul(n_cases, FACTORIAL[n_elements], MOD);
@@ -109,7 +109,7 @@ void init() {
 }
 
 int main() {
-    int T;
+    long long T;
     init();
     for (cin >> T; T; T--) testcase();
     return 0;
