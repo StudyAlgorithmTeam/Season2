@@ -22,4 +22,5 @@
 |[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=weeast1521)](https://solved.ac/weeast1521/)|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=UHyeonj)](https://solved.ac/UHyeonj/)|
 
 
-마크다운 사용법 링크: https://gist.github.com/ihoneymon/652be052a0727ad59601
+> 마크다운 사용법 링크: https://gist.github.com/ihoneymon/652be052a0727ad59601
+> readme 꾸미기 링크: https://soo-vely-dev.tistory.com/159
