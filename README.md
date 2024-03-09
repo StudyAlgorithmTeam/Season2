@@ -19,7 +19,7 @@
 
 | 팀원 서동혁 | 팀원 정우현 |
 |-|-|
-|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=weeast1521)](https://solved.ac/weeast1521/)|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=UHyeonj)](https://solved.ac/UHyeonj/)|
+|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=weeast1521)](https://solved.ac/weeast1521/)|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=megitang)](https://solved.ac/UHyeonj/)|
 
 
 > 마크다운 사용법 링크: https://gist.github.com/ihoneymon/652be052a0727ad59601 </br>
