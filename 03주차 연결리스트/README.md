@@ -2,8 +2,8 @@
 ## 숙제
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
-|        | 번   |      | https://www.acmicpc.net/problem/ |
-|        | 번   |      | https://www.acmicpc.net/problem/ |
+|S2|1406번|에디터| https://www.acmicpc.net/problem/1406 |
+|G4|10422번|괄호|https://www.acmicpc.net/problem/10422 |
 
 ## 스터디 진행 중 풀이
 | 난이도 | 번호 | 제목 | 링크                             |
@@ -39,6 +39,6 @@
 #### 서동혁
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
-| 실버 1 | 12026번   | BOJ거리     | https://www.acmicpc.net/problem/12026 |
-| 골드 4 | 10422번   | 괄호     | https://www.acmicpc.net/problem/10422 |
+| 골드 4 | 번   |      | https://www.acmicpc.net/problem/ |
+| 골드 5 | 번   |      | https://www.acmicpc.net/problem/ |
 
