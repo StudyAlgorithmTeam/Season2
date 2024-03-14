@@ -16,8 +16,8 @@
 #### 민기홍
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
-| 골드 4 | 번   |      | https://www.acmicpc.net/problem/ |
-| 골드 5 | 번   |      | https://www.acmicpc.net/problem/ |
+| G4 | 1197번   | 최소 스패닝 트리      | https://www.acmicpc.net/problem/1197 |
+| G4 | 1647번   | 도시 분할 계획     | https://www.acmicpc.net/problem/1647 |
 
 #### 김동주
 
