@@ -2,15 +2,8 @@
 ## 숙제
 |난이도|번호|제목|링크|
 |-|-|-|-|
-||번||https://www.acmicpc.net/problem/|
-||번||https://www.acmicpc.net/problem/|
-
-## 스터디 진행 중 풀이
-|난이도|번호|제목|링크|
-|-----|-----|----------|----------------------------------------|
-|난이도|번호|제목|링크|
-|골드 4|번||https://www.acmicpc.net/problem/|
-
+| S3 | 1788번 | 피보나치 수의 확장| https://www.acmicpc.net/problem/1788 |
+| G4 | 1197번 |  최소 스패닝 트리 | https://www.acmicpc.net/problem/1197 |
 
 ## 찾아온 문제들
 #### 민기홍
