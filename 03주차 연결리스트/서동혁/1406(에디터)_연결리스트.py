@@ -1,4 +1,8 @@
-list1 = list(input()) #문자열을 바로 list로 만드는 법
+
+import sys
+input= sys.stdin.readline
+list1 = list(input().strip()) #문자열을 바로 list로 만드는 법
+
 
 M = int(input())
 
@@ -21,11 +25,9 @@ for i in range(M): #O(M)
     else:
         list1.append(select[1])
 #P ==> 커서 왼쪽 기준으로 추가시켜야 하므로 list1에 append하면 된다. 
-for i in list1:
-    print(i, end='')
 
-for i in reversed(list2):
-    print(i, end='')
+list2.reverse()
+print(''.join(list1) + ''.join(list2))
 # print(''.join(list1)) 이렇게도 가능
     
 #pypy로는 실행되는데 python으로는 시간초과가 뜸
