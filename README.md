@@ -4,8 +4,9 @@
 
 ### 팀 내규:
   **1. 문제 난이도 선정 기준 -> Silver ~ Gold** </br>
-  **2. 매 주 2문제 (문제 시리즈 통일)** </br>
-  **3. 벌칙:** </br>
+  **2. 매 주 1문제 찾아오기** </br>
+  **3. 찾아온 문제가 2개 이상일 때, 메인 Readme에 기록** </br>
+  **4. 벌칙:** </br>
 >     - readme에 찾아온 문제가 없을 시 벌금 2천원
 >     - 스터디 시작까지 문제 풀이 코드 git에 업로드 되어있지 않을 시 벌금 2천원
 >     - 위 1, 2번 규칙을 위반하였더라도 늦게라도 제출 시 벌금 천원
@@ -23,7 +24,7 @@
   |--------|-------|
 
 ## 활동 멤버:
-| 팀장 민기홍 | 팀원 김동주 |
+| 팀장 민기홍 | 신선 김동주 |
 |-|-|
 |[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=doctorwho14)](https://solved.ac/doctorwho14/)|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=hepheir)](https://solved.ac/hepheir/)|
 
