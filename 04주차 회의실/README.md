@@ -9,14 +9,12 @@
 #### 민기홍
 |난이도|번호|제목|링크|
 |-----|-----|---------------------|----------------------------------------|
-|골드 4|번||https://www.acmicpc.net/problem/|
-|골드 5|번||https://www.acmicpc.net/problem/|
+| G3 | 2143번 | 두 배열의 합 | https://www.acmicpc.net/problem/2143 |
 
 #### 김동주
 |난이도|번호|제목|링크|
 |-----|-----|---------------------|----------------------------------------|
-|골드 4|번||https://www.acmicpc.net/problem/|
-|골드 5|번||https://www.acmicpc.net/problem/|
+| G4 |번||https://www.acmicpc.net/problem/|
 
 #### 정우현
 |난이도|번호|제목|링크|
