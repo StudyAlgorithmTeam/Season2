@@ -1,4 +1,4 @@
-from bisect import bisect
+from bisect import bisect_left
 from sys import stdin
 from sys import stdout
 
@@ -12,18 +12,20 @@ def testcase():
     N = int(stdin.readline())
 
     meetings = [ tuple(map(int, stdin.readline().split())) for _ in range(N) ]
-    meetings.sort()
+    meetings.sort(key=lambda m: m[END]) # 종료 시간 기준으로 정렬
 
-    dp = [0] * (N+1)
+    dp = [0] * N # i 번째 회의가 끝났을 때, 최대 인원
 
     for i in range(N):
-        j = bisect(meetings, meetings[i][END], key=lambda m: m[START])
+        dp[i] = meetings[i][COUNT]
 
-        for k in range(j, N+1):
-            if dp[k] < dp[i] + meetings[i][COUNT]:
-                dp[k] = dp[i] + meetings[i][COUNT]
+        j = bisect_left(meetings, meetings[i][START], lo=0, hi=i, key=lambda m: m[END])
 
-    stdout.write(str(dp[N])+'\n')
+        for k in range(j):
+            if dp[i] < dp[k] + meetings[i][COUNT]:
+                dp[i] = dp[k] + meetings[i][COUNT]
+
+    stdout.write(str(max(dp))+'\n')
 
 
 if __name__ == '__main__':
