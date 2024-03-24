@@ -27,5 +27,4 @@
 #### 서동혁
 |난이도|번호|제목|링크|
 |-----|-----|---------------------|----------------------------------------|
-|골드 4|번||https://www.acmicpc.net/problem/|
-|골드 5|번||https://www.acmicpc.net/problem/|
+|실버 2|1927번|최소 힙|https://www.acmicpc.net/problem/1927|
