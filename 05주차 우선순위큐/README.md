@@ -2,14 +2,8 @@
 ## 숙제
 |난이도|번호|제목|링크|
 |-|-|-|-|
-||번||https://www.acmicpc.net/problem/|
-||번||https://www.acmicpc.net/problem/|
-
-## 스터디 진행 중 풀이
-|난이도|번호|제목|링크|
-|-----|-----|----------|----------------------------------------|
-|난이도|번호|제목|링크|
-|골드 4|번||https://www.acmicpc.net/problem/|
+| G5 | 12731번 | 열차 시간표(small) | https://www.acmicpc.net/problem/12731 |
+| G5 | 12732번 | 열차 시간표(large) | https://www.acmicpc.net/problem/12732 |
 
 
 ## 찾아온 문제들
