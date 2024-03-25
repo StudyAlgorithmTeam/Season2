@@ -2,8 +2,8 @@
 ## 숙제
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
-|        | 번   |      | https://www.acmicpc.net/problem/ |
-|        | 번   |      | https://www.acmicpc.net/problem/ |
+|S2|1406번|에디터| https://www.acmicpc.net/problem/1406 |
+|G4|10422번|괄호|https://www.acmicpc.net/problem/10422 |
 
 ## 스터디 진행 중 풀이
 | 난이도 | 번호 | 제목 | 링크                             |
@@ -14,10 +14,11 @@
 
 ## 찾아온 문제들
 #### 민기홍
+##### MST 시리즈
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
-| 골드 4 | 번   |      | https://www.acmicpc.net/problem/ |
-| 골드 5 | 번   |      | https://www.acmicpc.net/problem/ |
+| G4 | 1197번   | 최소 스패닝 트리      | https://www.acmicpc.net/problem/1197 |
+| G4 | 1647번   | 도시 분할 계획     | https://www.acmicpc.net/problem/1647 |
 
 #### 김동주
 
@@ -33,11 +34,12 @@
 #### 정우현
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
-| 골드 4 | 번   |      | https://www.acmicpc.net/problem/ |
-| 골드 5 | 번   |      | https://www.acmicpc.net/problem/ |
+| 골드 5 | 5972번   | 택배 배송     | https://boj.kr/5972 |
+| 실버 1 | 2343번   | 기타 레슨     | https://boj.kr/2343 |
 
 #### 서동혁
 | 난이도 | 번호 | 제목 | 링크                             |
 | ------ | ---- | ---- | -------------------------------- |
 | 골드 4 | 번   |      | https://www.acmicpc.net/problem/ |
 | 골드 5 | 번   |      | https://www.acmicpc.net/problem/ |
+
