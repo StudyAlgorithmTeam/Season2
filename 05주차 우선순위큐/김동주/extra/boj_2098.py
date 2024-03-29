@@ -1,34 +1,54 @@
-from collections import deque
+from functools import cache
 from sys import stdin
 from sys import stdout
 from sys import maxsize
+from typing import Iterable
+
+
+def bset_add(s: int, x: int) -> int:
+    s |= 1 << x
+    return s
+
+def bset_remove(s: int, x: int) -> int:
+    s &= ~(1 << x)
+    return s
+
+def bset_len(s: int) -> int:
+    l = 0
+    while s:
+        if s & 1:
+            l += 1
+        s >>= 1
+    return l
+
+def bset_iter(s: int) -> Iterable[int]:
+    i = 0
+    while s:
+        if s & 1:
+            yield i
+        i += 1
+        s >>= 1
 
 
 W_UNREACHABLE = 0
 
 N = int(stdin.readline())
 W = [list(map(int, stdin.readline().split())) for _ in range(N)]
-Q = deque(range(N))
 
 
-def tsp(root: int = None, parent: int = None):
+@cache
+def C(S: int, i: int = 0) -> int:
+    # the cost of the minimum cost path visiting each vertex in set S exactly once,
+    if bset_len(S) == 1:
+        return W[0][i] if W[0][i] != W_UNREACHABLE else maxsize
+
     w = maxsize
-    if Q:
-        loops = len(Q)
-        while loops:
-            child = Q.popleft()
-            if root is None:
-                w = min(tsp(child, child), w)
-            elif W[parent][child] != W_UNREACHABLE:
-                w = min(tsp(root, child)+W[parent][child], w)
-            Q.append(child)
-            loops -= 1
-    else: # empty queue (visited all nodes)
-        child = root
-        if W[parent][child] != W_UNREACHABLE:
-            w = W[parent][child]
+    for j in bset_iter(S):
+        if W[j][i] != W_UNREACHABLE:
+            w = min(C(bset_remove(S, i), j)+W[j][i], w)
     return w
 
 
-stdout.write(str(tsp()))
+ans = C((1 << N)-1)
+stdout.write(str(ans))
 stdout.write('\n')
