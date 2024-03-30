@@ -11,12 +11,17 @@ inorder = list(map(int, stdin.readline().split()))
 postorder = list(map(int, stdin.readline().split()))
 
 
+inorder_index = [None] * (n+1)
+for index, value in enumerate(inorder):
+    inorder_index[value] = index
+
+
 def traverse(in_s: int, in_e: int, post_s: int, post_e: int):
     root = postorder[post_e]
 
     preorder.append(root)
 
-    ltree_size = inorder.index(root)-in_s
+    ltree_size = inorder_index[root]-in_s
     rtree_size = in_e-in_s-ltree_size
 
     if ltree_size > 0:
