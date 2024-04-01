@@ -5,14 +5,14 @@ N = int(input())
 result = []
 for i in range(N):
     T = int(input())
-    count = 0
-    heap_a_arr = []
-    heap_b_arr = []
-    countt = [1,0]
-    arr_ch = 0
-    aorb = 0
-    a,b = map(int,input().split())
-    arr_count = a + b -1
+
+    heap_a_arr = [] #A역
+    heap_b_arr = [] #B역
+    countt = [1,0] # 필요 열차 갯수
+    arr_ch = 0 # 출발 시간을 저장하는 변수 (a, b 둘 다)
+    aorb = 0 # A or B  A역인지 B역인지 확인 => is_True 같은 bool 형태가 더 좋은듯
+    a,b = map(int,input().split()) # NA, NB => F2  rename symbol하면 한번에 변경 가능
+    arr_count = a + b -1 # 총 시간의 갯수
     for j in range(a):
         nas_str,nae_str = map(str,input().split())
         nas_str = nas_str.replace(":","")
