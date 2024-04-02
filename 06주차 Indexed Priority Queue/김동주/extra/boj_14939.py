@@ -4,82 +4,86 @@ from sys import stdin
 N = 10
 INF = 1000
 RAW_BULB_ON = 'O'
-
-raw_grid = stdin.readlines()
-
-# bitmasked grid
-grid = [0] * N
-
-KERNEL = [
-    (0b111) << 8,
-    (0b010) << 8,
-    (0b010) << 8, # 음수 인덱싱 고려하여 아래로 배치
-]
+RAW_BULB_OFF = '#'
 
 
-def press_switch(y: int, x: int):
-    for dy in (-1, 0, 1):
-        if (y+dy) < 0 or (y+dy) >= N:
-            continue
-        grid[y+dy] ^= (KERNEL[dy] >> x) & 0b1111111111
-
-
-def backtrack(y: int = 0, x: int = 0):
-    # 모든 전구가 다 꺼짐
-    if sum(grid) == 0:
-        return 0
-
-    # 모든 라인을 다 검사 했지만, 완성 X
-    if y >= N:
-        return INF
-
-    # 다음 라인도 검사
-    if x >= N:
-        return backtrack(y+1, 0)
-
-    # 컨셉은, 지금 보고 있는 좌표의 이전 행 전체와,
-    # 같은 행의 이전 열들을 반복하여 수정하지 않는 것.
-
-    ans = INF
-
-    if grid[y] & (0b1000000000 >> x) == 0:
-        # 불이 꺼져있으므로 아무것도 하지 않아본다.
-        return backtrack(y, x+1)
-
-    if ans != 0 and y == 0 and x == 0:
-        # 나 자신을 끔
-        press_switch(y, x)
-        ans = min(backtrack(y, x+1)+1, ans)
-        press_switch(y, x)
-    if ans != 0 and y == 0 and x < (N-1):
-        # 나를 끄기 위해 오른쪽 것을 끔
-        press_switch(y, x+1)
-        ans = min(backtrack(y, x+1)+1, ans)
-        press_switch(y, x+1)
-    if ans != 0 and y < (N-1) :
-        # 나를 끄기 위해 아래에 있는 것을 끔
-        press_switch(y+1, x)
-        ans = min(backtrack(y, x+1)+1, ans)
-        press_switch(y+1, x)
-    return ans
-
-
-def render():
-    """디버그용 함수"""
-    lines = []
+def grid_encode(lines):
+    hash = 0
     for y in range(N):
-        lines.append(f'{grid[y] % (1 << 10):010b}')
+        hash <<= 2
+        for x in range(N):
+            hash <<= 1
+            if lines[y][x] == RAW_BULB_ON:
+                hash |= 1
+    return hash
+
+
+def grid_decode(hash):
+    lines = [[RAW_BULB_OFF]*N for y in range(N)]
+    for y in reversed(range(N)):
+        for x in range(N):
+            if hash & (1 << (N-x-1)):
+                lines[y][x] = RAW_BULB_ON
+        hash >>= N+2
+        lines[y] = ''.join(lines[y])
     return lines
 
 
-if __name__ == '__main__':
+def init_kernel():
+    kernel = 0
+    kernel = (kernel << (N+2)) | 0b0100000000
+    kernel = (kernel << (N+2)) | 0b1110000000
+    kernel = (kernel << (N+2)) | 0b0100000000
+    kernel = kernel << ((N+2) * (N-3))
+    kernel_topleft_mask = 1
+    kernel_topleft_mask <<= (N+2)*(N-1)+N-1
+
+    # 커널의 중심이 그리드의 좌상단에 위치하도록 옮김
+    kernel <<= (N+2)+1
+    kernel_topleft_mask <<= (N+2)+1
+    kernel_center_mask = kernel_topleft_mask >> ((N+2)+1)
+
+    kernel_mask = 0
     for y in range(N):
+        kernel_mask <<= N+2
+        kernel_mask |= 0b1111111111
+
+    return kernel, kernel_mask, kernel_center_mask
+
+
+def bruteforce(grid, kernel, kernel_mask, kernel_center_mask):
+    # 첫 번째 행에 대해서는 완전탐색 O(2^N)
+    for i in range(1 << N+1):
+        g = grid
+        k = kernel
+        n_xors = 0
         for x in range(N):
-            grid[y] <<= 1
-            if raw_grid[y][x] == RAW_BULB_ON:
-                grid[y] |= 1
-    ans = backtrack()
-    if ans == INF:
-        print(-1)
-    else:
-        print(ans)
+            if i & (1 << x):
+                g ^= k
+                n_xors += 1
+            k >>= 1
+        yield n_xors + bruteforce_downward(g, kernel, kernel_mask, kernel_center_mask)
+
+
+def bruteforce_downward(grid, kernel, kernel_mask, kernel_center_mask):
+    # 두 번째 행 이후로는 그리디로, 그냥 켜진 것만 끔 O(N^2)
+    n_xors = 0
+    kernel >>= (N+2)
+    kernel_center_mask >>= (N+2)
+    while kernel_center_mask:
+        # 누를 수 있는 버튼일 때만 누른다
+        if kernel_center_mask & kernel_mask:
+            kernel_top_mask = kernel_center_mask << (N+2)
+            if grid & kernel_top_mask:
+                grid ^= kernel
+                n_xors += 1
+        kernel >>= 1
+        kernel_center_mask >>= 1
+    return INF if (grid & kernel_mask) else n_xors
+
+
+if __name__ == '__main__':
+    kernel, kernel_mask, kernel_center_mask = init_kernel()
+    grid = grid_encode(stdin.readlines())
+    n_xors = min(bruteforce(grid, kernel, kernel_mask, kernel_center_mask))
+    print(-1 if n_xors == INF else n_xors)
