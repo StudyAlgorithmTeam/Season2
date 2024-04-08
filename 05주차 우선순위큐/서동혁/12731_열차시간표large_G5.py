@@ -59,24 +59,31 @@ for i in range(N):
     tmp_A = [] # B -> A로 출발한 열차가 A에 있는 경우(interval time + b->a 시각의 도착시간)
     tmp_B = [] 
 
+    SCH_DEPARTURE_HOUR = 0
+    SCH_DEPARTURE_MIN = 1
+    SCH_ARRIVE_HOUR = 2
+    SCH_ARRIVE_MIN = 3
+
     for k in range(NA + NB):
-        if result_A[A_index][0] <= result_B[B_index][0]:
-            if len(tmp_A) > 0 and tmp_A[0] <= result_A[A_index][0]:
+        if result_A[A_index][SCH_DEPARTURE_HOUR] <= result_B[B_index][SCH_DEPARTURE_HOUR]:
+            if len(tmp_A) > 0 and tmp_A[0] <= result_A[A_index][SCH_DEPARTURE_HOUR]:
                 heapq.heappop(tmp_A)
-                heapq.heappush(tmp_B, result_A[A_index][2] + Interval_Time)
             else:
-                heapq.heappush(tmp_B, result_A[A_index][2] + Interval_Time)
                 A_Count += 1
+
+            heapq.heappush(tmp_B, result_A[A_index][SCH_ARRIVE_HOUR] + Interval_Time)
             A_index +=1
 
         else:
-            if len(tmp_B) > 0 and tmp_B[0] <= result_B[B_index][0]:
+            if len(tmp_B) > 0 and tmp_B[SCH_DEPARTURE_HOUR] <= result_B[B_index][SCH_DEPARTURE_HOUR]:
                 heapq.heappop(tmp_B)
-                heapq.heappush(tmp_A, result_B[B_index][2] + Interval_Time)
             else:
-                heapq.heappush(tmp_A, result_B[B_index][2] + Interval_Time)
                 B_Count += 1
+            heapq.heappush(tmp_A, result_B[B_index][SCH_ARRIVE_HOUR] + Interval_Time)
             B_index +=1
     
 
     print("Case #%d: %d %d" % (i+1, A_Count, B_Count))
+
+
+
