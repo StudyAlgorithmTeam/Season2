@@ -1,22 +1,13 @@
 N = int(input())
-liquid = [*map(int, input().split())]
+liquid = sorted(map(int, input().split()), key=abs)
 
-min_res = int(1e12)
-min_l = None
-min_r = None
+min_res = int(1e10)
+min_values = [0, 0]
 
-l = 0
-r = N-1
+for i in range(N-1):
+    res = abs(liquid[i]+liquid[i+1])
+    if min_res > res:
+        min_res = res
+        min_values[:] = liquid[i], liquid[i+1]
 
-while l <= r:
-    if (val := abs(liquid[l]+liquid[r])) < min_res:
-        min_l = l
-        min_r = r
-        min_res = val
-
-    if abs(l) > abs(r):
-        l += 1
-    else:
-        r -= 1
-
-print(liquid[min_l], liquid[min_r])
+print(*sorted(min_values))
