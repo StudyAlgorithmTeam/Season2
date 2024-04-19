@@ -1,77 +1,70 @@
 import sys
 
 
-sudoku = [[0] * 9 for _ in range(9)]
-sudoku_fixed = [[False] * 9 for _ in range(9)]
+class Sudoku:
+    def __init__(self) -> None:
+        self.grid = [[0]*9 for _ in range(9)]
+        self.fixed = [[False]*9 for _ in range(9)]
+        self.row_flag = [0] * 9
+        self.col_flag = [0] * 9
+        self.sgr_flag = [[0]*3 for _ in range(3)]
 
-row_hint = [set(range(1,10)) for _ in range(9)]
-column_hint = [set(range(1,10)) for _ in range(9)]
-subgrid_hint = [[set(range(1,10)) for _ in range(3)] for _ in range(3)]
+    def print(self):
+        for y in range(9):
+            for x in range(9):
+                sys.stdout.write(f'{self.grid[y][x]}')
+            sys.stdout.write('\n')
 
+    def fill(self, y: int, x: int, num: int, fixed: bool=False):
+        self.grid[y][x] = num
+        self.fixed[y][x] = fixed
+        flag = 1 << num
+        self.row_flag[y] |= flag
+        self.col_flag[x] |= flag
+        self.sgr_flag[y//3][x//3] |= flag
 
-def solve_next_cell(y: int = 0, x: int = 0) -> bool:
-    if y >= 9:
-        raise StopIteration
+    def unfill(self, y: int, x: int):
+        num = self.grid[y][x]
+        self.grid[y][x] = 0
+        flag = 1 << num
+        self.row_flag[y] &= ~flag
+        self.col_flag[x] &= ~flag
+        self.sgr_flag[y//3][x//3] &= ~flag
 
-    # 다음에 풀 스도쿠 좌표
-    ny, nx = y+(x+1)//9, (x+1)%9
+    def solve(self):
+        try:
+            self._solve_util(0, 0)
+        except StopIteration:
+            pass
 
-    if sudoku_fixed[y][x]:
-        solve_next_cell(ny, nx)
-    else:
+    def _solve_util(self, y: int, x: int):
+        if y >= 9:
+            raise StopIteration
+        ny, nx = y+(x+1)//9, (x+1)%9 # 다음에 풀 스도쿠 좌표
+        if self.fixed[y][x]:
+            self._solve_util(ny, nx)
+        else:
+            for num in self._possible_numbers(y, x):
+                self.fill(y, x, num)
+                self._solve_util(ny, nx)
+                self.unfill(y, x)
+        return
+
+    def _possible_numbers(self, y: int, x: int):
+        flags = self.row_flag[y] | self.col_flag[x] | self.sgr_flag[y//3][x//3]
         for num in range(1, 10):
-            if validate_cell(y, x, num):
-                fill_cell(y, x, num)
-                solve_next_cell(ny, nx)
-                unfill_cell(y, x, num)
-
-
-def validate_cell(y: int, x: int, num: int) -> bool:
-    return validate_row_of(x, y, num) and validate_column_of(x, y, num) and validate_subgrid_of(y, x, num)
-
-
-def validate_row_of(x: int, y: int, num: int) -> bool:
-    return num in row_hint[y]
-
-
-def validate_column_of(x: int, y: int, num: int) -> bool:
-    return num in column_hint[x]
-
-
-def validate_subgrid_of(y: int, x: int, num: int) -> bool:
-    return num in subgrid_hint[y//3][x//3]
-
-
-def fill_cell(y: int, x: int, num: int):
-    sudoku[y][x] = num
-    row_hint[y].remove(num)
-    column_hint[x].remove(num)
-    subgrid_hint[y//3][x//3].remove(num)
-
-
-def unfill_cell(y: int, x: int, num: int):
-    sudoku[y][x] = 0
-    row_hint[y].add(num)
-    column_hint[x].add(num)
-    subgrid_hint[y//3][x//3].add(num)
+            flags >>= 1
+            if (flags & 1) == 0:
+                yield num
 
 
 if __name__ == "__main__":
-    # 입력 받는다
+    sudoku = Sudoku()
+
     for y in range(9):
         for x, num in enumerate(map(int, sys.stdin.readline().strip())):
             if num != 0:
-                fill_cell(y, x, num)
-                sudoku_fixed[y][x] = True
+                sudoku.fill(y, x, num, fixed=True)
 
-    # 푼다
-    try:
-        solve_next_cell()
-    except StopIteration:
-        pass
-
-    # 출력 한다
-    for y in range(9):
-        for x in range(9):
-            sys.stdout.write(str(sudoku[y][x]))
-        sys.stdout.write('\n')
+    sudoku.solve()
+    sudoku.print()
