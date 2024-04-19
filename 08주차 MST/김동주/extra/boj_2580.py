@@ -1,11 +1,13 @@
 import sys
-import typing
 
 
 class Sudoku:
     def __init__(self) -> None:
         self.grid = [[0]*9 for _ in range(9)]
         self.fixed = [[False]*9 for _ in range(9)]
+        self.row_flag = [0] * 9
+        self.col_flag = [0] * 9
+        self.sgr_flag = [[0]*3 for _ in range(3)]
 
     def print(self):
         for y in range(9):
@@ -16,9 +18,18 @@ class Sudoku:
     def fill(self, y: int, x: int, num: int, fixed: bool=False):
         self.grid[y][x] = num
         self.fixed[y][x] = fixed
+        flag = 1 << num
+        self.row_flag[y] |= flag
+        self.col_flag[x] |= flag
+        self.sgr_flag[y//3][x//3] |= flag
 
     def unfill(self, y: int, x: int):
+        num = self.grid[y][x]
         self.grid[y][x] = 0
+        flag = 1 << num
+        self.row_flag[y] &= ~flag
+        self.col_flag[x] &= ~flag
+        self.sgr_flag[y//3][x//3] &= ~flag
 
     def solve(self):
         try:
@@ -32,38 +43,19 @@ class Sudoku:
         ny, nx = y+(x+1)//9, (x+1)%9 # 다음에 풀 스도쿠 좌표
         if self.fixed[y][x]:
             self._solve_util(ny, nx)
-            return
-        for num in range(1, 10):
-            if not self._validate(y, x, num):
-                continue
-            self.fill(y, x, num)
-            self._solve_util(ny, nx)
-            self.unfill(y, x)
+        else:
+            for num in self._possible_numbers(y, x):
+                self.fill(y, x, num)
+                self._solve_util(ny, nx)
+                self.unfill(y, x)
         return
 
-    def _validate(self, y: int, x: int, num: int) -> bool:
-        if num in self._row_iterator(y):
-            return False
-        if num in self._column_iterator(x):
-            return False
-        if num in self._subgrid_iterator(y, x):
-            return False
-        return True
-
-    def _row_iterator(self, y: int) -> typing.Iterator[int]:
-        for x in range(9):
-            yield self.grid[y][x]
-
-    def _column_iterator(self, x: int) -> typing.Iterator[int]:
-        for y in range(9):
-            yield self.grid[y][x]
-
-    def _subgrid_iterator(self, y: int, x: int) -> typing.Iterator[int]:
-        sg_y = y//3
-        sg_x = x//3
-        for y in range(3*sg_y, 3*sg_y+3):
-            for x in range(3*sg_x, 3*sg_x+3):
-                yield self.grid[y][x]
+    def _possible_numbers(self, y: int, x: int):
+        flags = self.row_flag[y] | self.col_flag[x] | self.sgr_flag[y//3][x//3]
+        for num in range(1, 10):
+            flags >>= 1
+            if (flags & 1) == 0:
+                yield num
 
 
 if __name__ == "__main__":
