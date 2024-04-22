@@ -4,7 +4,7 @@ def calc(fwd, bwd, s):
     if rem <= fwd:
         dist += rem
     else:
-        dist -= rem - fwd
+        dist += fwd-(rem-fwd)
     return dist
 
 
