@@ -32,6 +32,10 @@
 |-|-|
 |[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=ehdgurdusdn)](https://solved.ac/ehdgurdusdn/)|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=megitang)](https://solved.ac/UHyeonj/)|
 
+| 팀원 손영준 |
+|-|
+|[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=dudwnsths1)](https://solved.ac/dudwnsths1/)|
+
 
 > 마크다운 사용법 링크: https://gist.github.com/ihoneymon/652be052a0727ad59601 </br>
 > readme 꾸미기 링크: https://soo-vely-dev.tistory.com/159
