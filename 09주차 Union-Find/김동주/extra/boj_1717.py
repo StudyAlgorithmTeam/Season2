@@ -4,15 +4,17 @@ from typing import *
 import sys
 
 
+MAX_N = int(1e6)
+
 n, m = map(int, sys.stdin.readline().split())
 
 parent = list(range(n+1))
 
 
 def find(a):
-    while a != parent[a]:
-        a = parent[a]
-    return a
+    if parent[a] != a:
+        parent[a] = find(parent[a])
+    return parent[a]
 
 
 def union(a, b):
@@ -22,6 +24,8 @@ def union(a, b):
         a, b = b, a
     parent[a] = b
 
+
+sys.setrecursionlimit(MAX_N)
 
 for i in range(m):
     cmd, a, b = map(int, sys.stdin.readline().split())
