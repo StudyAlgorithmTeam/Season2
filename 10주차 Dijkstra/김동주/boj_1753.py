@@ -1,6 +1,6 @@
 # 최단경로
 
-from collections import deque
+import heapq
 import sys
 
 
@@ -15,16 +15,17 @@ for i in range(E):
     if v not in cost[u] or cost[u][v] > w:
         cost[u][v] = w
 
-q = deque([K])
 dist = [sys.maxsize] * (V+1)
 dist[K] = 0
-while q:
-    u = q.popleft()
-    if u in cost:
+
+pq = [(0, K)]
+while pq:
+    d, u = heapq.heappop(pq)
+    if d <= dist[u] and u in cost:
         for v in cost[u]:
             if dist[v] > dist[u] + cost[u][v]:
                 dist[v] = dist[u] + cost[u][v]
-                q.append(v)
+                heapq.heappush(pq, (dist[v], v))
 
 for i in range(1, V+1):
     if dist[i] == sys.maxsize:
