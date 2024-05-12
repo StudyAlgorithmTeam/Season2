@@ -18,17 +18,17 @@ dist = [INF]*(n+1) # 최단거리 저장할 리스트를 무한대로 초기ㄹ�
 dist[x] = 0 # 시작노드의 거리는 0으로 초기화
 
 while q: # 갈 수 있는 점들 힙큐에서 꺼내서 확인.
-    weight, node = heapq.heappop(q)
+    weight, node = heapq.heappop(q) #우선순위 큐에서 노드와 해당 노드까지의 거리를 빼온다.
     if dist[node] < weight: # 이미 최단거리가 갱신됨.
         continue
     # 현재 노드와 연결된 노드 검사
     for i in graph[node]:
         newWeight,newNode = 1,i # 새로운 노드 가중치는 1이다. 모든 가중치는 1임.
         distance = weight + newWeight
-        # 똑같이 짧으면 업데이트하고 아니면 무시
+        # 새로운 거리가 기존 거리보다 짧다면 업데이트후 우선순위큐에 넣음.
         if dist[newNode]> distance:
             dist[newNode] = distance
-            heapq.heappush(q,(distance,newNode))
+            heapq.heappush(q,(distance,newNode)) # 다시 넣는다.
         else:
             continue
 
