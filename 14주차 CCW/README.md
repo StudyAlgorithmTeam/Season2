@@ -11,6 +11,8 @@
 
 CCW (Counter-Clockwise algorithm)
 
+[![ccw](https://github.com/StudyAlgorithmTeam/Season2/assets/19310326/8f10f750-3480-456d-9c0e-83c0fe6eecf3)](https://ohgym.tistory.com/11)
+
 
 ## 스터디 진행 중 풀이
 
